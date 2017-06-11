@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/search"
+        android:checkable="false"
+        android:icon="@mipmap/ic_search_black_24dp"
+        android:title="Item"
+        android:visible="true"
+        app:showAsAction="collapseActionView" />
+</menu>

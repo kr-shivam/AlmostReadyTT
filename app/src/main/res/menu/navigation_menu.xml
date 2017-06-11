@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_edu"
+        android:title="Education"
+        android:icon="@mipmap/ic_library_books_black_24dp"/>
+    <item android:id="@+id/nav_electronics"
+        android:title="Electronics"
+        android:icon="@mipmap/ic_laptop_black_24dp"/>
+    <item android:id="@+id/nav_rest"
+        android:title="Restaurant"
+        android:icon="@mipmap/ic_restaurant_menu_black_24dp"/>
+    <item android:id="@+id/nav_cloth"
+        android:title="Apparels"
+        android:icon="@drawable/tshirt"/>
+    <View style="@style/Divider"/>
+
+    <item android:id="@+id/nav_notifications"
+        android:title="Notification"
+        android:icon="@mipmap/ic_notifications_black_24dp"/>
+    <item android:id="@+id/nav_offers"
+        android:title="Offers"
+        android:icon="@mipmap/ic_local_offer_black_24dp"/>
+    <item android:id="@+id/nav_wallet"
+        android:title="Wallet"
+        android:icon="@mipmap/ic_account_balance_wallet_black_24dp"/>
+    <item android:id="@+id/nav_cart"
+        android:title="Cart"
+        android:icon="@mipmap/ic_shopping_cart_black_24dp"/>
+    <item android:id="@+id/nav_wishlist"
+        android:title="Wishlist"
+        android:icon="@mipmap/ic_favorite_black_24dp"/>
+    <item android:id="@+id/nav_account"
+        android:title="Account"
+        android:icon="@mipmap/ic_account_circle_black_24dp"/>
+    <item android:id="@+id/nav_help"
+        android:title="Support"
+        android:icon="@mipmap/ic_record_voice_over_black_24dp"/>
+    <item android:id="@+id/nav_settings"
+        android:title="Setings"
+        android:icon="@mipmap/ic_settings_black_24dp"/>
+    <item android:id="@+id/nav_logout"
+        android:title="Log Out"
+        android:icon="@mipmap/ic_power_settings_new_black_24dp"/>
+    <item android:id="@+id/nav_about"
+        android:title="About"
+        android:icon="@mipmap/ic_info_outline_black_24dp"/>
+
+</menu>
