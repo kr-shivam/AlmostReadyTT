@@ -10,8 +10,5 @@
         android:icon="@mipmap/ic_notifications_black_24dp"
         android:title="Notify"
         app:showAsAction="ifRoom" />
-    <item
-        android:icon="@mipmap/ic_search_black_24dp"
-        android:title="Search"
-        app:showAsAction="ifRoom" />
+
 </menu>
