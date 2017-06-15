@@ -1,5 +1,6 @@
 package com.knight.myapplication;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -229,28 +230,72 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_edu) {
-            // Handle the camera action
+            Intent intent = new Intent(this, EducationActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_electronics) {
+
+            Intent intent = new Intent(this, ElectronicsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_rest) {
 
+            Intent intent = new Intent(this, RestaurantsActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_cloth) {
+
+            Intent intent = new Intent(this, ApparelsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_notifications) {
 
+            Intent intent = new Intent(this, NotificationsActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_offers) {
+
+            Intent intent = new Intent(this, OffersActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_wallet) {
+
+            Intent intent = new Intent(this, WalletActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_cart) {
 
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_wishlist) {
+
+            Intent intent = new Intent(this, FavouritesActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_account) {
 
+            Intent intent = new Intent(this, MyAccountActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_help) {
+
+            Intent intent = new Intent(this, HelpCenterActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_settings) {
+
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_logout) {
+
+            //INSERT LOGOUT FUNCTION
+
         } else if (id == R.id.nav_about) {
+
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
 
         }
 
