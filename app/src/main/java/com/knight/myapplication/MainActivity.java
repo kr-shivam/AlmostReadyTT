@@ -1,7 +1,5 @@
 package com.knight.myapplication;
 
-import android.media.Image;
-import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -23,8 +21,6 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -42,6 +38,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
+    int[] mallicon = {R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix};
+    String[] titles = {"Pheonix Mall", "UB Mall", "Pheonix Mall", "UB Mall", "Pheonix Mall"};
+    int[] ratings = {2, 4, 4, 1, 5};
+    int[] num_ratings = {34, 56, 65, 354, 67};
+    String[] distance = {"3.5 km", "5 km", "7 km", "8.2 km", "4 km"};
+    int i;
 
     private List<MyList> myList = new ArrayList<MyList>();
     @Override
@@ -109,16 +111,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         populateMyList();
 
-        final int[] mallicon = {R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix};
-        final String[] titles = {"Pheonix Mall", "UB Mall", "Pheonix Mall", "UB Mall", "Pheonix Mall"};
-        Double[] ratings = {2.3, 4.5, 4.0, 1.5, 5.0};
-        final int[] num_ratings = {34, 56, 65, 354, 67};
-        final Double[] distance = {3.5, 5.6, 7.7, 8.0, 4.5};
 
-        ListView myListView = (ListView) findViewById(R.id.myListView);
+
+        ListView listView = (ListView) findViewById(R.id.myListView);
 
         CustomAdapter customAdapter = new CustomAdapter();
-        myListView.setAdapter(customAdapter);
+        listView.setAdapter(customAdapter);
 
     }
         class CustomAdapter extends BaseAdapter {
@@ -126,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public int getCount() {
-                String mallicon;
-                return mallicon.length();
+
+              return mallicon.length;
             }
 
             @Override
@@ -148,12 +146,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 RatingBar rbMallRating = (RatingBar) view.findViewById(R.id.rbMallRating);
                 TextView tvNumOfRatings = (TextView) view.findViewById(R.id.tvNumRatings);
                 TextView tvMallDistance = (TextView) view.findViewById(R.id.tvMallDistance);
-                int i;
-                ivMallIcon.setImageResource(mallicon[i]);
-                tvMallTitle.setText(titles[i]);
-                rbMallRating.setNumStars(ratings[i]);
-                tvNumOfRatings.setText(num_ratings[i]);
-                tvMallDistance.setText(distance[i]);
+
+                ivMallIcon.setImageResource(mallicon[position]);
+                tvMallTitle.setText(titles[position]);
+                rbMallRating.setNumStars(ratings[position]);
+                tvNumOfRatings.setText(num_ratings[position]);
+                tvMallDistance.setText(distance[position]);
 
 
                 return view;
