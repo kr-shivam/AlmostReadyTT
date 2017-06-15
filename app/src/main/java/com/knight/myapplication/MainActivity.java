@@ -1,5 +1,6 @@
 package com.knight.myapplication;
 
+import android.media.Image;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -13,8 +14,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar, R.string.open, R.string.close);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
 
 
         mDrawerLayout.addDrawerListener(mToggle);
@@ -60,11 +69,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dots = new ImageView[dotscount];
 
         for (int i = 0; i < dotscount; i++) {
-            dots [i] = new ImageView(this);
+            dots[i] = new ImageView(this);
             dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(8,0,8,0);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(8, 0, 8, 0);
 
             sliderDotspanel.addView(dots[i], params);
         }
@@ -80,11 +89,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onPageSelected(int position) {
 
-                for (int i = 0; i < dotscount ; i++) {
+                for (int i = 0; i < dotscount; i++) {
                     dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
                 }
 
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.active_dot));
+                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
             }
 
             @Override
@@ -94,22 +103,71 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        Timer timer= new Timer();
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
 
         populateMyList();
 
-}
+        final int[] mallicon = {R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix};
+        final String[] titles = {"Pheonix Mall", "UB Mall", "Pheonix Mall", "UB Mall", "Pheonix Mall"};
+        Double[] ratings = {2.3, 4.5, 4.0, 1.5, 5.0};
+        final int[] num_ratings = {34, 56, 65, 354, 67};
+        final Double[] distance = {3.5, 5.6, 7.7, 8.0, 4.5};
+
+        ListView myListView = (ListView) findViewById(R.id.myListView);
+
+        CustomAdapter customAdapter = new CustomAdapter();
+        myListView.setAdapter(customAdapter);
+
+    }
+        class CustomAdapter extends BaseAdapter {
+
+
+            @Override
+            public int getCount() {
+                String mallicon;
+                return mallicon.length();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return 0;
+            }
+
+            @Override
+            public View getView(int position, View view, ViewGroup parent) {
+                view = getLayoutInflater().inflate(R.layout.row, null);
+                ImageView ivMallIcon = (ImageView) view.findViewById(R.id.ivMallIcon);
+                TextView tvMallTitle = (TextView) view.findViewById(R.id.tvMallTitle);
+                RatingBar rbMallRating = (RatingBar) view.findViewById(R.id.rbMallRating);
+                TextView tvNumOfRatings = (TextView) view.findViewById(R.id.tvNumRatings);
+                TextView tvMallDistance = (TextView) view.findViewById(R.id.tvMallDistance);
+                int i;
+                ivMallIcon.setImageResource(mallicon[i]);
+                tvMallTitle.setText(titles[i]);
+                rbMallRating.setNumStars(ratings[i]);
+                tvNumOfRatings.setText(num_ratings[i]);
+                tvMallDistance.setText(distance[i]);
+
+
+                return view;
+            }
+        }
 
     private void populateMyList() {
 
-        myList.add(new MyList("Ford",1940,R.mipmap.ic_local_offer_black_24dp,"Needing Work"));
-        myList.add(new MyList("Ford",1940,R.drawable.tshirt,"Needing Work"));
-        myList.add(new MyList("Ford",1940,R.mipmap.ic_laptop_black_24dp,"Needing Work"));
-        myList.add(new MyList("Ford",1940,R.mipmap.ic_restaurant_menu_black_24dp,"Needing Work"));
-        myList.add(new MyList("Ford",1940,R.mipmap.ic_library_books_black_24dp,"Needing Work"));
-        myList.add(new MyList("Ford",1940,R.mipmap.ic_more_horiz_black_24dp,"Needing Work"));
+        myList.add(new MyList(R.mipmap.ic_local_offer_black_24dp));
+        myList.add(new MyList(R.drawable.tshirt));
+        myList.add(new MyList(R.mipmap.ic_laptop_black_24dp));
+        myList.add(new MyList(R.mipmap.ic_restaurant_menu_black_24dp));
+        myList.add(new MyList(R.mipmap.ic_library_books_black_24dp));
+        myList.add(new MyList(R.mipmap.ic_more_horiz_black_24dp));
 
     }
 
