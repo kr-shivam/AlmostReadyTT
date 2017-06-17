@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="left|fill_horizontal"
     android:orientation="horizontal">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivMallIcon"
-            android:layout_width="143dp"
-            android:layout_height="119dp"
-            android:layout_gravity="fill_vertical|fill_horizontal"
-            android:foregroundGravity="fill_vertical|fill_horizontal"
-            android:paddingLeft="20dp"
-            app:srcCompat="@drawable/mall_ub" />
-    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/ivMallIcon"
+        android:layout_width="143dp"
+        android:layout_height="119dp"
+        android:paddingLeft="20dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/mall_ub" />
+
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -38,17 +35,17 @@
 
 
         <LinearLayout
-            android:layout_width="279dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RatingBar
                 android:id="@+id/rbMallRating"
-                android:layout_width="211dp"
-                android:layout_height="46dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="(81)"
-                android:foregroundGravity="center_vertical|fill_vertical"
                 android:isIndicator="false"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:numStars="5"
                 android:rating="5"
                 android:scaleX="0.5"
@@ -56,10 +53,9 @@
                 />
 
             <TextView
-                android:id="@+id/tvNumRatings"
-                android:layout_width="wrap_content"
+                android:id="@+id/number_rating"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foregroundGravity="fill_horizontal"
                 android:gravity="center_vertical"
                 android:text="(34)" />
 

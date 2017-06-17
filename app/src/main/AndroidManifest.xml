@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.knight.myapplication">
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -16,11 +19,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EducationActivity">
-
-
-
-        </activity>
+        <activity android:name=".EducationActivity"/>
+        <activity android:name=".AboutActivity"/>
+        <activity android:name=".ApparelsActivity"/>
+        <activity android:name=".CartActivity"/>
+        <activity android:name=".ElectronicsActivity"/>
+        <activity android:name=".FavouritesActivity"/>
+        <activity android:name=".HelpCenterActivity"/>
+        <activity android:name=".MyAccountActivity"/>
+        <activity android:name=".NotificationsActivity"/>
+        <activity android:name=".OffersActivity"/>
+        <activity android:name=".RestaurantsActivity"/>
+        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".WalletActivity"/>
+        <activity android:name=".LocationGrabActivity"/>
+        <activity android:name=".MallPheonixActivity"/>
+        <activity android:name=".MallUBActivity"/>
     </application>
 
 </manifest>

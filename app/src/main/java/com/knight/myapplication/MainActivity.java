@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int i;
 
     private List<MyList> myList = new ArrayList<MyList>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,51 +115,81 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         populateMyList();
 
 
-
         ListView listView = (ListView) findViewById(R.id.myListView);
 
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
 
-    }
-        class CustomAdapter extends BaseAdapter {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+        @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-            @Override
-            public int getCount() {
-
-              return mallicon.length;
+            if (position == 0){
+                Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
+                startActivity(myintent);
             }
-
-            @Override
-            public Object getItem(int position) {
-                return null;
+            if(position == 1){
+                Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
+                startActivityForResult(myintent,1);
             }
-
-            @Override
-            public long getItemId(int position) {
-                return 0;
+            if(position == 2){
+                Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
+                startActivityForResult(myintent,2);
             }
-
-            @Override
-            public View getView(int position, View view, ViewGroup parent) {
-                view = getLayoutInflater().inflate(R.layout.row, null);
-                ImageView ivMallIcon = (ImageView) view.findViewById(R.id.ivMallIcon);
-                TextView tvMallTitle = (TextView) view.findViewById(R.id.tvMallTitle);
-                RatingBar rbMallRating = (RatingBar) view.findViewById(R.id.rbMallRating);
-                TextView tvNumOfRatings = (TextView) view.findViewById(R.id.tvNumRatings);
-                TextView tvMallDistance = (TextView) view.findViewById(R.id.tvMallDistance);
-
-                ivMallIcon.setImageResource(mallicon[position]);
-                tvMallTitle.setText(titles[position]);
-                rbMallRating.setNumStars(ratings[position]);
-                tvNumOfRatings.setText(num_ratings[position]);
-                tvMallDistance.setText(distance[position]);
-
-
-                return view;
+            if(position == 3){
+                Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
+                startActivityForResult(myintent,3);
+            }
+            if(position == 4){
+                Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
+                startActivityForResult(myintent,4);
             }
         }
+
+        });
+
+
+    }
+
+    class CustomAdapter extends BaseAdapter {
+
+
+        @Override
+        public int getCount() {
+
+            return mallicon.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            view = getLayoutInflater().inflate(R.layout.row, null);
+            ImageView ivMallIcon = (ImageView) view.findViewById(R.id.ivMallIcon);
+            TextView tvMallTitle = (TextView) view.findViewById(R.id.tvMallTitle);
+            RatingBar rbMallRating = (RatingBar) view.findViewById(R.id.rbMallRating);
+            TextView tvNumOfRatings = (TextView) view.findViewById(R.id.number_rating);
+            TextView tvMallDistance = (TextView) view.findViewById(R.id.tvMallDistance);
+
+            ivMallIcon.setImageResource(mallicon[position]);
+            tvMallTitle.setText(titles[position]);
+            rbMallRating.setNumStars(ratings[position]);
+            tvNumOfRatings.setText(String.valueOf((num_ratings[position])));
+            tvMallDistance.setText(distance[position]);
+
+
+            return view;
+        }
+    }
 
     private void populateMyList() {
 
@@ -169,36 +201,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myList.add(new MyList(R.mipmap.ic_more_horiz_black_24dp));
 
     }
+   // @Override
+    //ImageView image_offer  = (ImageView) view.findViewById(R.id.offer_icon);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
+        if (position == 0) {
+            Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
+            startActivity(myintent);
+        }
+        if(position == 1){
+            Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
+            startActivityForResult(myintent,1);
+        }
+        if(position == 2){
+            Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
+            startActivityForResult(myintent,2);
+        }
+        if(position == 3){
+            Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
+            startActivityForResult(myintent,3);
+        }
+        if(position == 4){
+            Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
+            startActivityForResult(myintent,4);
+        }
+    }
 
 
     public class MyTimerTask extends TimerTask {
 
 
-    @Override
-    public void run() {
+        @Override
+        public void run() {
 
-        MainActivity.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (viewPager.getCurrentItem() == 0) {
+            MainActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (viewPager.getCurrentItem() == 0) {
 
-                    viewPager.setCurrentItem(1);
-                } else if(viewPager.getCurrentItem() == 1) {
-                    viewPager.setCurrentItem(2);
-                } else{
-                    viewPager.setCurrentItem(0);
+                        viewPager.setCurrentItem(1);
+                    } else if (viewPager.getCurrentItem() == 1) {
+                        viewPager.setCurrentItem(2);
+                    } else {
+                        viewPager.setCurrentItem(0);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
-}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
+        int id = item.getItemId();
+        if(id == R.id.location_grab){
+
+            Intent intent = new Intent(this, LocationGrabActivity.class);
+            startActivity(intent);
+
+        }
+
+        if(id == R.id.notification_icon){
+
+            Intent intent = new Intent(this, NotificationsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -210,8 +276,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getMenuInflater().inflate(R.menu.common_menu, menu);
 
+
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -264,7 +332,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
 
         } else if (id == R.id.nav_cart) {
-
             Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
 
