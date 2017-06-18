@@ -2,6 +2,7 @@ package com.knight.myapplication;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -28,13 +29,18 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.knight.myapplication.mFragments.ApparelsFragment;
+import com.knight.myapplication.mFragments.EducationFragment;
+import com.knight.myapplication.mFragments.ElectronicsFragment;
+import com.knight.myapplication.mFragments.MyPagerAdapter;
+import com.knight.myapplication.mFragments.RestaurantsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
     ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
@@ -46,12 +52,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout sliderDotspanel;
     private int dotscount;
     private ImageView[] dots;
-    int[] mallicon = {R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix};
+  /*  int[] mallicon = {R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix};
     String[] titles = {"Pheonix Mall", "UB Mall", "Pheonix Mall", "UB Mall", "Pheonix Mall"};
     int[] ratings = {2, 4, 4, 1, 5};
     int[] num_ratings = {34, 56, 65, 354, 67};
-    String[] distance = {"3.5 km", "5 km", "7 km", "8.2 km", "4 km"};
+    String[] distance = {"3.5 km", "5 km", "7 km", "8.2 km", "4 km"}; */
     int i;
+    ViewPager vp;
+    TabLayout tabLayout;
 
 
     private List<MyList> myList = new ArrayList<MyList>();
@@ -72,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle.syncState();
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-      //  sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
+        //  sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -119,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
-
+/* Code for Orange Strip Icons (Removed from app.. left for reference)
         populateMyList();
 
 
@@ -183,32 +191,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myList.add(new MyList(R.mipmap.ic_more_horiz_black_24dp));
 
     }
-   // @Override
-    //ImageView image_offer  = (ImageView) view.findViewById(R.id.offer_icon);
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-        if (position == 0) {
-            Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
-            startActivity(myintent);
-        }
-        if(position == 1){
-            Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
-            startActivityForResult(myintent,1);
-        }
-        if(position == 2){
-            Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
-            startActivityForResult(myintent,2);
-        }
-        if(position == 3){
-            Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
-            startActivityForResult(myintent,3);
-        }
-        if(position == 4){
-            Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
-            startActivityForResult(myintent,4);
-        }
+*/
+
+        vp = (ViewPager) findViewById(R.id.mViewpager_ID);
+
     }
 
+
+    private void addPages(){
+
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(this.getSupportFragmentManager());
+        pagerAdapter.addFragment(new ApparelsFragment());
+        pagerAdapter.addFragment(new EducationFragment());
+        pagerAdapter.addFragment(new ElectronicsFragment());
+        pagerAdapter.addFragment(new RestaurantsFragment());
+
+        //ViewPager
+        vp.setAdapter(pagerAdapter);
+        this.addPages();
+
+        //TabLayout
+        tabLayout = (TabLayout) findViewById(R.id.mTab_ID);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setupWithViewPager(vp);
+        tabLayout.setOnTabSelectedListener(this);
+
+
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        vp.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 
     public class MyTimerTask extends TimerTask {
 
@@ -246,6 +271,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(id == R.id.notification_icon){
 
             Intent intent = new Intent(this, NotificationsActivity.class);
+            startActivity(intent);
+        }
+
+        if(id == R.id.cart_icon){
+
+            Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
         }
 
