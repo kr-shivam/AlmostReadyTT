@@ -28,9 +28,7 @@
 
     <group android:id="@+id/drawer_g2"
         android:checkableBehavior="single">
-        <item android:id="@+id/nav_notifications"
-            android:title="Notification"
-            android:icon="@mipmap/ic_notifications_black_24dp"/>
+
         <item android:id="@+id/nav_offers"
             android:title="Offers"
             android:icon="@mipmap/ic_local_offer_black_24dp"/>
@@ -41,9 +39,7 @@
     <group android:id="@+id/drawer_g3"
         android:checkableBehavior="single">
 
-        <item android:id="@+id/nav_wallet"
-            android:title="Wallet"
-            android:icon="@mipmap/ic_account_balance_wallet_black_24dp"/>
+
         <item android:id="@+id/nav_cart"
             android:title="Cart"
             android:icon="@mipmap/ic_shopping_cart_black_24dp"/>

@@ -16,12 +16,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String[] distance = {"3.5 km", "5 km", "7 km", "8.2 km", "4 km"};
     int i;
 
+
     private List<MyList> myList = new ArrayList<MyList>();
 
     @Override
@@ -55,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Firebase.setAndroidContext(this);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
@@ -64,13 +72,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle.syncState();
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
+      //  sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        dotscount = viewPagerAdapter.getCount();
+        /* Dots for Slider Image dotscount = viewPagerAdapter.getCount();
         dots = new ImageView[dotscount];
 
         for (int i = 0; i < dotscount; i++) {
@@ -106,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-
+        */
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
@@ -120,34 +128,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
-        @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-            if (position == 0){
-                Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
-                startActivity(myintent);
-            }
-            if(position == 1){
-                Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
-                startActivityForResult(myintent,1);
-            }
-            if(position == 2){
-                Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
-                startActivityForResult(myintent,2);
-            }
-            if(position == 3){
-                Intent myintent = new Intent(view.getContext(),MallUBActivity.class);
-                startActivityForResult(myintent,3);
-            }
-            if(position == 4){
-                Intent myintent = new Intent(view.getContext(),MallPheonixActivity.class);
-                startActivityForResult(myintent,4);
-            }
-        }
-
-        });
 
 
     }
@@ -316,19 +298,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(this, ApparelsActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_notifications) {
-
-            Intent intent = new Intent(this, NotificationsActivity.class);
-            startActivity(intent);
-
         } else if (id == R.id.nav_offers) {
 
             Intent intent = new Intent(this, OffersActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_wallet) {
-
-            Intent intent = new Intent(this, WalletActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_cart) {
@@ -348,11 +320,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_help) {
 
             Intent intent = new Intent(this, HelpCenterActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_settings) {
-
-            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_logout) {

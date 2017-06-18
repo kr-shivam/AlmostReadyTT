@@ -12,5 +12,10 @@
         android:icon="@mipmap/ic_notifications_black_24dp"
         android:title="Notify"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/notification_icon"
+        android:icon="@mipmap/ic_shopping_cart_black_24dp"
+        android:title="Cart"
+        app:showAsAction="ifRoom" />
 
 </menu>

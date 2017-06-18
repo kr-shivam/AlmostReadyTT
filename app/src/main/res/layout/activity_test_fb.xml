@@ -3,12 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:paddingTop="50dp"
-        android:text="Probably --to be deleted menu--"
-        android:textSize="30sp" />
+        android:layout_height="match_parent" />
 </LinearLayout>

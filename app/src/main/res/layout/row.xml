@@ -35,7 +35,7 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -51,14 +51,11 @@
                 android:scaleX="0.5"
                 android:scaleY="0.5"
                 />
-
             <TextView
                 android:id="@+id/number_rating"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="(34)" />
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(30)"/>
 
         </LinearLayout>
 
