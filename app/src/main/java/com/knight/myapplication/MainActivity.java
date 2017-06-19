@@ -3,41 +3,32 @@ package com.knight.myapplication;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.knight.myapplication.mData.MallList;
 import com.knight.myapplication.mFragments.ApparelsFragment;
 import com.knight.myapplication.mFragments.EducationFragment;
 import com.knight.myapplication.mFragments.ElectronicsFragment;
 import com.knight.myapplication.mFragments.MyPagerAdapter;
+import com.knight.myapplication.mFragments.OffersFragment;
 import com.knight.myapplication.mFragments.RestaurantsFragment;
+
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
@@ -45,24 +36,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private RecyclerView.Adapter mAdapter;
-    private ArrayList<String> mDataset;
-    LinearLayout sliderDotspanel;
-    private int dotscount;
-    private ImageView[] dots;
-  /*  int[] mallicon = {R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix, R.drawable.mall_ub, R.drawable.mall_pheonix};
-    String[] titles = {"Pheonix Mall", "UB Mall", "Pheonix Mall", "UB Mall", "Pheonix Mall"};
-    int[] ratings = {2, 4, 4, 1, 5};
-    int[] num_ratings = {34, 56, 65, 354, 67};
-    String[] distance = {"3.5 km", "5 km", "7 km", "8.2 km", "4 km"}; */
-    int i;
     ViewPager vp;
     TabLayout tabLayout;
 
 
-    private List<MyList> myList = new ArrayList<MyList>();
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,145 +61,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToggle.syncState();
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        //  sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        /* Dots for Slider Image dotscount = viewPagerAdapter.getCount();
-        dots = new ImageView[dotscount];
 
-        for (int i = 0; i < dotscount; i++) {
-            dots[i] = new ImageView(this);
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(8, 0, 8, 0);
-
-            sliderDotspanel.addView(dots[i], params);
-        }
-
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                for (int i = 0; i < dotscount; i++) {
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
-                }
-
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        */
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
-
-/* Code for Orange Strip Icons (Removed from app.. left for reference)
-        populateMyList();
-
-
-        ListView listView = (ListView) findViewById(R.id.myListView);
-
-        CustomAdapter customAdapter = new CustomAdapter();
-        listView.setAdapter(customAdapter);
-
-
-
-
-
-    }
-
-    class CustomAdapter extends BaseAdapter {
-
-
-        @Override
-        public int getCount() {
-
-            return mallicon.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            view = getLayoutInflater().inflate(R.layout.row, null);
-            ImageView ivMallIcon = (ImageView) view.findViewById(R.id.ivMallIcon);
-            TextView tvMallTitle = (TextView) view.findViewById(R.id.tvMallTitle);
-            RatingBar rbMallRating = (RatingBar) view.findViewById(R.id.rbMallRating);
-            TextView tvNumOfRatings = (TextView) view.findViewById(R.id.number_rating);
-            TextView tvMallDistance = (TextView) view.findViewById(R.id.tvMallDistance);
-
-            ivMallIcon.setImageResource(mallicon[position]);
-            tvMallTitle.setText(titles[position]);
-            rbMallRating.setNumStars(ratings[position]);
-            tvNumOfRatings.setText(String.valueOf((num_ratings[position])));
-            tvMallDistance.setText(distance[position]);
-
-
-            return view;
-        }
-    }
-
-    private void populateMyList() {
-
-        myList.add(new MyList(R.mipmap.ic_local_offer_black_24dp));
-        myList.add(new MyList(R.drawable.tshirt));
-        myList.add(new MyList(R.mipmap.ic_laptop_black_24dp));
-        myList.add(new MyList(R.mipmap.ic_restaurant_menu_black_24dp));
-        myList.add(new MyList(R.mipmap.ic_library_books_black_24dp));
-        myList.add(new MyList(R.mipmap.ic_more_horiz_black_24dp));
-
-    }
-
-*/
 
         vp = (ViewPager) findViewById(R.id.mViewpager_ID);
-
-    }
-
-
-    private void addPages(){
-
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(this.getSupportFragmentManager());
-        pagerAdapter.addFragment(new ApparelsFragment());
-        pagerAdapter.addFragment(new EducationFragment());
-        pagerAdapter.addFragment(new ElectronicsFragment());
-        pagerAdapter.addFragment(new RestaurantsFragment());
-
-        //ViewPager
-        vp.setAdapter(pagerAdapter);
-        this.addPages();
-
-        //TabLayout
+        addPages(vp);
         tabLayout = (TabLayout) findViewById(R.id.mTab_ID);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(vp);
         tabLayout.setOnTabSelectedListener(this);
 
 
+
     }
+
+
+    private void addPages(ViewPager viewPager){
+
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(this.getSupportFragmentManager());
+        pagerAdapter.addFragment(new OffersFragment(),"Offers");
+        pagerAdapter.addFragment(new ApparelsFragment(),"Apparels");
+        pagerAdapter.addFragment(new EducationFragment(),"Education");
+        pagerAdapter.addFragment(new ElectronicsFragment(),"Electronics");
+        pagerAdapter.addFragment(new RestaurantsFragment(),"Restaurants");
+
+        //ViewPager
+        viewPager.setAdapter(pagerAdapter);
+
+
+        //TabLayout
+
+
+
+
+    }
+
+    //For Tabbed View on Home Screen
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -234,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
-
+// For Slider Auto slide
     public class MyTimerTask extends TimerTask {
 
 
@@ -256,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
         }
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

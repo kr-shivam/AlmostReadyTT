@@ -56,7 +56,9 @@
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mTab_ID">
+        android:id="@+id/mTab_ID"
+        app:tabMode="scrollable"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance">
 
 
 

@@ -19,22 +19,22 @@ import java.util.zip.Inflater;
  * Created by knight on 6/18/2017.
  */
 
-public class RestaurantsFragment extends Fragment {
+public class OffersFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.frag_restaurants,container, false);
-        ListView lv = (ListView) rootView.findViewById(R.id.restaurantsListView);
-        CustomAdapter adapter = new CustomAdapter(this.getActivity(),getRestaurantsMall());
+        View rootView = inflater.inflate(R.layout.frag_offers,container, false);
+        ListView lv = (ListView) rootView.findViewById(R.id.offersListView);
+        CustomAdapter adapter = new CustomAdapter(this.getActivity(),getOffers());
         lv.setAdapter(adapter);
 
         return rootView;
     }
 
 
-    private ArrayList<MallList> getRestaurantsMall(){
+    private ArrayList<MallList> getOffers(){
 
         ArrayList<MallList> malls = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public class RestaurantsFragment extends Fragment {
     @Override
     public String toString() {
 
-        String title = "Restaurants";
+        String title = "Offers";
         return title;
     }
 }
