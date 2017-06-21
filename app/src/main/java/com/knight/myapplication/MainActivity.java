@@ -1,5 +1,7 @@
 package com.knight.myapplication;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -9,16 +11,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.firebase.client.Firebase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.knight.myapplication.mData.MallList;
+import com.knight.myapplication.categories.AboutActivity;
+import com.knight.myapplication.categories.ApparelsActivity;
+import com.knight.myapplication.categories.CartActivity;
+import com.knight.myapplication.categories.EducationActivity;
+import com.knight.myapplication.categories.ElectronicsActivity;
+import com.knight.myapplication.categories.FavouritesActivity;
+import com.knight.myapplication.categories.HelpCenterActivity;
+import com.knight.myapplication.categories.LocationGrabActivity;
+import com.knight.myapplication.categories.MyAccountActivity;
+import com.knight.myapplication.categories.NotificationsActivity;
+import com.knight.myapplication.categories.OffersActivity;
+import com.knight.myapplication.categories.RestaurantsActivity;
 import com.knight.myapplication.mFragments.ApparelsFragment;
 import com.knight.myapplication.mFragments.EducationFragment;
 import com.knight.myapplication.mFragments.ElectronicsFragment;
@@ -27,8 +38,7 @@ import com.knight.myapplication.mFragments.OffersFragment;
 import com.knight.myapplication.mFragments.RestaurantsFragment;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
@@ -53,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         Firebase.setAndroidContext(this);
 
+
+
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
 
@@ -76,9 +89,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setupWithViewPager(vp);
         tabLayout.setOnTabSelectedListener(this);
 
-
+        //Timer Function for slider
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
     }
+
+
 
 
     private void addPages(ViewPager viewPager){
@@ -118,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 // For Slider Auto slide
+
     public class MyTimerTask extends TimerTask {
 
 
@@ -173,7 +191,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
+
+
+
+
         getMenuInflater().inflate(R.menu.common_menu, menu);
+
+        //For search Bar
+
 
 
         return super.onCreateOptionsMenu(menu);

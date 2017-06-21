@@ -18,20 +18,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
-        <activity android:name=".EducationActivity"/>
-        <activity android:name=".AboutActivity"/>
-        <activity android:name=".ApparelsActivity"/>
-        <activity android:name=".CartActivity"/>
-        <activity android:name=".ElectronicsActivity"/>
-        <activity android:name=".FavouritesActivity"/>
-        <activity android:name=".HelpCenterActivity"/>
-        <activity android:name=".MyAccountActivity"/>
-        <activity android:name=".NotificationsActivity"/>
-        <activity android:name=".OffersActivity"/>
-        <activity android:name=".RestaurantsActivity"/>
-        <activity android:name=".LocationGrabActivity"/>
+
+        <activity android:name=".categories.EducationActivity"/>
+        <activity android:name=".categories.AboutActivity"/>
+        <activity android:name=".categories.ApparelsActivity"/>
+        <activity android:name=".categories.CartActivity"/>
+        <activity android:name=".categories.ElectronicsActivity"/>
+        <activity android:name=".categories.FavouritesActivity"/>
+        <activity android:name=".categories.HelpCenterActivity"/>
+        <activity android:name=".categories.MyAccountActivity"/>
+        <activity android:name=".categories.NotificationsActivity"/>
+        <activity android:name=".categories.OffersActivity"/>
+        <activity android:name=".categories.RestaurantsActivity"/>
+        <activity android:name=".categories.LocationGrabActivity"/>
         <activity android:name=".MallPheonixActivity"/>
         <activity android:name=".MallUBActivity"/>
     </application>
