@@ -27,7 +27,7 @@
             app:layout_scrollFlags="scroll|enterAlways"/>
 
 
-        <EditText
+        <!--EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="47dp"
@@ -45,12 +45,60 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height=""
             android:id="@+id/search_list">
 
 
 
-        </ListView>
+        </ListView-->
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#ffffff"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/view" />
+
+            <SearchView
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:searchIcon="@android:drawable/ic_menu_search"
+
+                android:layout_alignTop="@+id/view">
+
+
+
+
+            </SearchView>
+            <ImageButton
+                android:id="@+id/speak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_settings_voice_black_24dp"
+                android:layout_alignRight="@+id/view"
+                android:background="#ffffff"
+                android:layout_alignTop="@+id/view"
+                android:layout_marginRight="5dp"
+                android:layout_alignBottom="@+id/view" />
+            <ListView
+                android:id="@+id/search_list"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@+id/speak"
+                >
+
+            </ListView>
+            
+        </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 

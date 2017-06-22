@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle mToggle;
     ViewPager vp;
     TabLayout tabLayout;
-    MaterialSearchView searchView;
+    SearchView searchView;
     ListView search_list;
     ArrayList<String> mSearchData = new ArrayList<>();
     private Firebase mRef;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mRef = new Firebase("https://fir-listview-c1643.firebaseio.com/mall_list");
         //Search Bar Init
 
-        EditText editText = (EditText) findViewById(R.id.editText);
+        SearchView searchView = (SearchView) findViewById(R.id.editText);
         search_list = (ListView)findViewById(R.id.search_list);
 
 
