@@ -43,6 +43,7 @@
             android:textColorHint="#c0c0c0"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height=""
@@ -52,54 +53,19 @@
 
         </ListView-->
         
-        <RelativeLayout
+        
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#ffffff"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:id="@+id/view" />
-
-            <SearchView
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:searchIcon="@android:drawable/ic_menu_search"
-
-                android:layout_alignTop="@+id/view">
+            android:layout_height="wrap_content"
+            app:searchBackground="@color/colorPrimary"
+            >
 
 
 
 
-            </SearchView>
-            <ImageButton
-                android:id="@+id/speak"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_settings_voice_black_24dp"
-                android:layout_alignRight="@+id/view"
-                android:background="#ffffff"
-                android:layout_alignTop="@+id/view"
-                android:layout_marginRight="5dp"
-                android:layout_alignBottom="@+id/view" />
-            <ListView
-                android:id="@+id/search_list"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:layout_below="@+id/speak"
-                >
 
-            </ListView>
-            
-        </RelativeLayout>
-
+        </com.miguelcatalan.materialsearchview.MaterialSearchView>
     </android.support.design.widget.AppBarLayout>
 
 
