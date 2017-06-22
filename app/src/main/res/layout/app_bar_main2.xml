@@ -43,6 +43,15 @@
             android:textColorHint="#c0c0c0"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/search_list">
+
+
+
+        </ListView>
+
     </android.support.design.widget.AppBarLayout>
 
 

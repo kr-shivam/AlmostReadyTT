@@ -11,13 +11,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.knight.myapplication.categories.AboutActivity;
 import com.knight.myapplication.categories.ApparelsActivity;
 import com.knight.myapplication.categories.CartActivity;
@@ -36,8 +42,10 @@ import com.knight.myapplication.mFragments.ElectronicsFragment;
 import com.knight.myapplication.mFragments.MyPagerAdapter;
 import com.knight.myapplication.mFragments.OffersFragment;
 import com.knight.myapplication.mFragments.RestaurantsFragment;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle mToggle;
     ViewPager vp;
     TabLayout tabLayout;
+    MaterialSearchView searchView;
+    ListView search_list;
+    ArrayList<String> mSearchData = new ArrayList<>();
+    private Firebase mRef;
+
+
 
 
 
@@ -62,6 +76,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Firebase.setAndroidContext(this);
+
+
+        //Firebase
+
+        mRef = new Firebase("https://fir-listview-c1643.firebaseio.com/mall_list");
+        //Search Bar Init
+
+        EditText editText = (EditText) findViewById(R.id.editText);
+        search_list = (ListView)findViewById(R.id.search_list);
+
+
+
+        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSearchData);
+        search_list.setAdapter(adapter);
+
+
+        mRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String value = dataSnapshot.getValue(String.class);
+                mSearchData.add(value);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
 
 
 
