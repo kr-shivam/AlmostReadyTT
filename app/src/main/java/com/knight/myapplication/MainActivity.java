@@ -93,11 +93,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /*Firebase
 
-       // mRef = new Firebase("https://fir-listview-c1643.firebaseio.com/mall_list");
-        //Search Bar Init
+        mRef = new Firebase("https://fir-listview-c1643.firebaseio.com/mall_list");
+       //Search Bar Init
 
 
-       // search_list = (ListView)findViewById(R.id.search_list);
+        search_list = (ListView)findViewById(R.id.search_list);
         //Firebase Retrieval
 
         mRef.addChildEventListener(new ChildEventListener() {
