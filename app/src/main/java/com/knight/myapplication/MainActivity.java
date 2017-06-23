@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
+
         mRef = new Firebase("https://fir-listview-c1643.firebaseio.com/mall_list/");
         mRef.addChildEventListener(new ChildEventListener() {
             @Override
