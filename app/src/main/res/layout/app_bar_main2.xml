@@ -13,7 +13,10 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
 
 
         <android.support.v7.widget.Toolbar
@@ -31,9 +34,6 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
-
             android:background="@drawable/my_search_edittext"
             android:drawableLeft="@android:drawable/ic_menu_search"
 
@@ -42,11 +42,6 @@
             android:textColor="#000000"
             android:textColorHint="#c0c0c0"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
-
-
-        
 
     </android.support.design.widget.AppBarLayout>
     <FrameLayout

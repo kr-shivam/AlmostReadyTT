@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 */
         searchEdittext=(EditText)findViewById(R.id.editText);
-        searchEdittext.setMaxLines(1);
         final ListView searchResult=(ListView)findViewById(R.id.listView);
 
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, listViewAdapterContent);
