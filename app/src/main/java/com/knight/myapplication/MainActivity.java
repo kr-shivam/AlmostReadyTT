@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -180,10 +182,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 */
-
         searchEdittext=(EditText)findViewById(R.id.editText);
+        searchEdittext.setMaxLines(1);
         final ListView searchResult=(ListView)findViewById(R.id.listView);
+
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, listViewAdapterContent);
+        searchResult.setAdapter(listAdapter);
+        FrameLayout frameLayout=(FrameLayout)findViewById(R.id.frameLayout);
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchResult.setVisibility(View.GONE);
+            }
+        });
+
+
+        searchEdittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                MainActivity.this.listAdapter.getFilter().filter(charSequence);
+                searchResult.setVisibility(View.VISIBLE);
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (searchEdittext.getText().toString().equals(""))
+                    searchResult.setVisibility(View.GONE);
+            }
+        });
+
+
         mRef = new Firebase("https://fir-listview-c1643.firebaseio.com/mall_list/");
         mRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -218,34 +254,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        //listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, listViewAdapterContent);
-        searchResult.setAdapter(listAdapter);
-        FrameLayout frameLayout=(FrameLayout)findViewById(R.id.frameLayout);
-        frameLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchResult.setVisibility(View.GONE);
-            }
-        });
 
-
-        searchEdittext.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                MainActivity.this.listAdapter.getFilter().filter(charSequence);
-                searchResult.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
 
 
 //Rest
