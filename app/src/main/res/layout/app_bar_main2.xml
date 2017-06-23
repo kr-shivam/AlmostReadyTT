@@ -27,16 +27,16 @@
             app:layout_scrollFlags="scroll|enterAlways"/>
 
 
-        <!--EditText
+        <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/searchbar"
+            android:layout_height="wrap_content"
+
+
+
+            android:background="@drawable/my_search_edittext"
             android:drawableLeft="@android:drawable/ic_menu_search"
-            android:focusable="true"
+
             android:hint="Search here"
             android:padding="5dp"
             android:textColor="#000000"
@@ -44,29 +44,13 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height=""
-            android:id="@+id/search_list">
 
-
-
-        </ListView-->
+        <include layout="@layout/content2_main" />
         
-        
-        <com.miguelcatalan.materialsearchview.MaterialSearchView
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:searchBackground="@color/colorPrimary"
-            >
 
-
-
-
-
-        </com.miguelcatalan.materialsearchview.MaterialSearchView>
     </android.support.design.widget.AppBarLayout>
+
+
 
 
     <android.support.v4.widget.NestedScrollView
