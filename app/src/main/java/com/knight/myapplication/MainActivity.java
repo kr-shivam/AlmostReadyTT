@@ -1,11 +1,19 @@
 package com.knight.myapplication;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.text.TextUtilsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -26,11 +34,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.knight.myapplication.categories.AboutActivity;
 import com.knight.myapplication.categories.ApparelsActivity;
 import com.knight.myapplication.categories.CartActivity;
@@ -55,6 +68,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -73,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     EditText searchEdittext;
     private ArrayAdapter<String> listAdapter;
     ArrayList<String> listViewAdapterContent = new ArrayList<>();
+    private static final int PLACE_PICKER_REQUEST = 1;
 
 
 
@@ -257,6 +272,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
+
 //Rest
 
 
@@ -288,6 +305,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
     }
+
+    //MAP LOCATION
+
+
 
 
 
@@ -355,14 +376,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
         if(id == R.id.location_grab){
 
-            Intent intent = new Intent(this, LocationGrabActivity.class);
-            startActivity(intent);
+            // Intent intent = new Intent(this, LocationGrabActivity.class);
+            //startActivity(intent);
+
+
 
         }
 
