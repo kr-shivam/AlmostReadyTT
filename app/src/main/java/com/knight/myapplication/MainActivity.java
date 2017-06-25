@@ -1,5 +1,7 @@
 package com.knight.myapplication;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -10,6 +12,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -34,6 +38,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
@@ -62,7 +67,6 @@ import com.knight.myapplication.mFragments.ElectronicsFragment;
 import com.knight.myapplication.mFragments.MyPagerAdapter;
 import com.knight.myapplication.mFragments.OffersFragment;
 import com.knight.myapplication.mFragments.RestaurantsFragment;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 
 import java.util.ArrayList;
@@ -74,12 +78,12 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener {
 
+
     ViewPager viewPager;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     ViewPager vp;
     TabLayout tabLayout;
-    MaterialSearchView searchView;
     ListView search_list;
     ArrayList<String> mSearchData = new ArrayList<>();
     private Firebase mRef;
@@ -87,7 +91,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     EditText searchEdittext;
     private ArrayAdapter<String> listAdapter;
     ArrayList<String> listViewAdapterContent = new ArrayList<>();
+    private static final int MY_PERMISSION_FINE_LOCATION = 101;
     private static final int PLACE_PICKER_REQUEST = 1;
+    TextView placeNameText;
+
 
 
 
@@ -108,95 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Firebase.setAndroidContext(this);
 
 
-        /*Firebase
 
-        mRef = new Firebase("https://fir-listview-c1643.firebaseio.com/mall_list");
-       //Search Bar Init
-
-
-        search_list = (ListView)findViewById(R.id.search_list);
-        //Firebase Retrieval
-
-        mRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String value = dataSnapshot.getValue(String.class);
-                mSearchData.add(value);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSearchData);
-        search_list.setAdapter(adapter);
-
-        searchView = (MaterialSearchView) findViewById(R.id.editText);
-
-
-
-
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                search_list = (ListView)findViewById(R.id.search_list);
-                ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, mSearchData);
-                search_list.setAdapter(adapter);
-            }
-        });
-
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText != null && !newText.isEmpty()){
-                    List<String> lstFound = new ArrayList<String>();
-
-                    for(String item : mSearchData){
-
-                        if (item.contains(newText))
-                            lstFound.add(item);
-                    }
-
-                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, lstFound);
-                    search_list.setAdapter(adapter);
-                }
-                else {
-                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, mSearchData);
-                    search_list.setAdapter(adapter);
-                }
-                return true;
-            }
-        });
-
-*/
         searchEdittext=(EditText)findViewById(R.id.editText);
         final ListView searchResult=(ListView)findViewById(R.id.listView);
 
@@ -265,15 +184,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        //String[] listViewAdapterContent = {"School", "House", "Building", "Food", "Sports", "Dress", "Ring"};
 
-
-
-
-
-
-
-
+//Location
+        //requestPermission();
 //Rest
 
 
@@ -305,6 +218,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
     }
+
+   /* private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_FINE_LOCATION);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+
+            case MY_PERMISSION_FINE_LOCATION:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getApplicationContext(), "This app requires location permissions to be granted", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+        }
+    }*/
 
     //MAP LOCATION
 
@@ -384,8 +320,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if(id == R.id.location_grab){
 
-            // Intent intent = new Intent(this, LocationGrabActivity.class);
-            //startActivity(intent);
+           Intent intent = new Intent(this, LocationGrabActivity.class);
+           startActivity(intent);
+
+
 
 
 
@@ -404,6 +342,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void locationfetch() {
+
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            Intent intent = builder.build(MainActivity.this);
+            startActivityForResult(intent, PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -441,28 +392,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_edu) {
-            Intent intent = new Intent(this, EducationActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(this, EducationFragment.class);
+            //startActivity(intent);
 
         } else if (id == R.id.nav_electronics) {
 
-            Intent intent = new Intent(this, ElectronicsActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(this, ElectronicsFragment.class);
+            //startActivity(intent);
 
         } else if (id == R.id.nav_rest) {
 
-            Intent intent = new Intent(this, RestaurantsActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(this, RestaurantsFragment.class);
+            //startActivity(intent);
 
         } else if (id == R.id.nav_cloth) {
 
-            Intent intent = new Intent(this, ApparelsActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(this, ApparelsFragment.class);
+            //startActivity(intent);
 
         } else if (id == R.id.nav_offers) {
 
-            Intent intent = new Intent(this, OffersActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(this, OffersFragment.class);
+            //startActivity(intent);
 
         } else if (id == R.id.nav_cart) {
             Intent intent = new Intent(this, CartActivity.class);
@@ -497,5 +448,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PLACE_PICKER_REQUEST){
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(MainActivity.this, data);
+                placeNameText.setText(place.getName());
+            }
+        }
     }
 }

@@ -21,14 +21,15 @@
     android:layout_marginBottom="5dp"/>
 
     <TextView
+        android:id="@+id/tvPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:gravity="center_vertical|center_horizontal"
-
+        android:text="Your Location"
         android:layout_marginTop="5dp"
-        android:text="Mr. Charles, Bengaluru"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <ImageView
