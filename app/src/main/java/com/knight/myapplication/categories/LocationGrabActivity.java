@@ -16,9 +16,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.knight.myapplication.MainActivity;
 import com.knight.myapplication.R;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by knight on 6/15/2017.
@@ -31,6 +34,7 @@ public class LocationGrabActivity extends Activity {
     private static final int PLACE_PICKER_REQUEST = 1;
     Button button;
     TextView placeNameText;
+    TextView placeAddressText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,7 @@ public class LocationGrabActivity extends Activity {
         requestPermission();
 
         placeNameText = (TextView) findViewById(R.id.tvTextView);
+        placeAddressText = (TextView) findViewById(R.id.tvPlaceAddress);
         button = (Button) findViewById(R.id.btn);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +83,19 @@ public class LocationGrabActivity extends Activity {
                     finish();
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PLACE_PICKER_REQUEST){
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(LocationGrabActivity.this, data);
+                placeNameText.setText(place.getName());
+                placeAddressText.setText(place.getAddress());
+            }
         }
     }
 }
