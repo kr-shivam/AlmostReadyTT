@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if(id == R.id.location_grab){
 
-           Intent intent = new Intent(this, LocationGrabActivity.class);
+           Intent intent = new Intent(this, PlacesAutoCompleteActivity.class);
            startActivity(intent);
 
 
