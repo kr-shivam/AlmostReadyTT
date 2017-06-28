@@ -32,9 +32,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.knight.myapplication.PlacesAutoCompleteAdapter;
 import com.knight.myapplication.RecyclerItemClickListener;
 import com.knight.myapplication.Constants;
+import com.knight.myapplication.categories.CartActivity;
 
 
-    public class PlacesAutoCompleteActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class PlacesAutoCompleteActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
         protected GoogleApiClient mGoogleApiClient;
 
         private static final LatLngBounds BOUNDS_INDIA = new LatLngBounds(
@@ -102,7 +103,10 @@ import com.knight.myapplication.Constants;
                                 public void onResult(PlaceBuffer places) {
                                     if(places.getCount()==1){
                                         //here
-                                        Toast.makeText(getApplicationContext(),String.valueOf(places.get(0).getLatLng()),Toast.LENGTH_SHORT).show();
+                                      // Toast.makeText(getApplicationContext(),String.valueOf(places.get(0).getLatLng()),Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(PlacesAutoCompleteActivity.this, MainActivity.class);
+
+                                        startActivity(intent);
                                     }else {
                                         Toast.makeText(getApplicationContext(),Constants.SOMETHING_WENT_WRONG,Toast.LENGTH_SHORT).show();
                                     }
@@ -117,26 +121,7 @@ import com.knight.myapplication.Constants;
 
 
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            return true;
-        }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
 
         protected synchronized void buildGoogleApiClient() {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
